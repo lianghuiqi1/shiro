@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <title>Thyme shiro标签的用法</title>
+</head>
+<body>
+
+登录才可见:
+<shiro:user>
+<input type="button" value="退出"/>
+</shiro:user>
+
+<shiro:authenticated>
+    <input type="button" value="退出"/>
+</shiro:authenticated>
+
+
+不登录才可见:
+<input type="button" value="注册" shiro:guest="true"/>
+无论怎样都可见:
+<input type="button" value="无论怎样都可见"/>
+
+<shiro:hasRole name="admin">
+
+</shiro:hasRole>
+</body>
+</html>

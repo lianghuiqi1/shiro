@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+	<th:block th:include="/inc/public::baseStyle"></th:block>
+	<script th:inline="javascript">
+
+		function edit(){
+			window.location.href="[(@{/user/update})]?userId=" + $("[name=\"userId\"]:checked").val();
+		}
+
+		function del(){
+			window.location.href="[(@{/user/delete})]?userId=" + $("[name=\"userId\"]:checked").val();
+		}
+
+		function auth(){
+			window.location.href="[(@{/user/auth})]?userId=" + $("[name=\"userId\"]:checked").val();
+		}
+
+	</script>
+</head>
+<body>
+
+	<div>
+		<div style="position: relative; left: 30px; top: -10px;">
+			<div class="page-header">
+				<h3>员工列表</h3>
+			</div>
+		</div>
+	</div>
+	<div class="btn-toolbar" role="toolbar" style="background-color: #F7F7F7; height: 50px; position: relative;left: 30px;">
+		<div class="btn-group" style="position: relative; top: 18%;">
+		  <button type="button" class="btn btn-primary" th:onclick="|window.location.href='@{/user/add}'|"><span class="glyphicon glyphicon-plus"></span> 新增</button>
+		  <button type="button" class="btn btn-default" onclick="edit();"><span class="glyphicon glyphicon-edit"></span> 编辑</button>
+		 <!-- <button type="button" class="btn btn-danger"  onclick="del();"><span class="glyphicon glyphicon-minus"></span> 删除</button>-->
+		  <button type="button" class="btn btn-success" onclick="auth();"><span class="glyphicon glyphicon-edit"></span> 授权</button>
+		</div>
+	</div>
+	<div style="position: relative; left: 30px; top: 20px;">
+		<table class="table table-hover">
+			<thead>
+				<tr style="color: #B3B3B3;">
+					<td><input type="checkbox" /></td>
+					<td>序号</td>
+					<td>用户名</td>
+					<td>性别</td>
+					<td>年龄</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="active" th:each="user,vs : ${userList}">
+					<td><input type="checkbox" name="userId" th:value="${user.userId}"/></td>
+					<td th:text="${vs.count}"></td>
+					<td>[[${user.userName}]]</td>
+					<td>[[${user.userSex eq 1 ? "男" : "女"}]]</td>
+					<td>[[${user.userAge}]]</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	
+</body>
+</html>

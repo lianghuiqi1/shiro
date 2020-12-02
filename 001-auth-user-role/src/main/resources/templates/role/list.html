@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+	<th:block th:include="/inc/public::baseStyle"></th:block>
+	<script th:inline="javascript">
+
+		function edit(){
+			window.location.href="[(@{/role/update})]?roleId=" + $("[name=\"roleId\"]:checked").val();
+		}
+
+		function del(){
+			window.location.href="[(@{/role/delete})]?roleId=" + $("[name=\"roleId\"]:checked").val();
+		}
+
+		function role(){
+			window.location.href="[(@{/role/role})]?roleId=" + $("[name=\"roleId\"]:checked").val();
+		}
+
+	</script>
+</head>
+<body>
+
+	<div>
+		<div style="position: relative; left: 30px; top: -10px;">
+			<div class="page-header">
+				<h3>角色列表</h3>
+			</div>
+		</div>
+	</div>
+	<div class="btn-toolbar" role="toolbar" style="background-color: #F7F7F7; height: 50px; position: relative;left: 30px;">
+		<div class="btn-group" style="position: relative; top: 18%;">
+		  <button type="button" class="btn btn-primary" th:onclick="|window.location.href='@{/role/add}'|"><span class="glyphicon glyphicon-plus"></span> 新增</button>
+		  <button type="button" class="btn btn-default" onclick="edit();"><span class="glyphicon glyphicon-edit"></span> 编辑</button>
+		  <!--<button type="button" class="btn btn-danger"  onclick="del();"><span class="glyphicon glyphicon-minus"></span> 删除</button>-->
+		</div>
+	</div>
+	<div style="position: relative; left: 30px; top: 20px;">
+		<table class="table table-hover">
+			<thead>
+				<tr style="color: #B3B3B3;">
+					<td><input type="checkbox" /></td>
+					<td>序号</td>
+					<td>角色名称</td>
+					<td>编码</td>
+					<td>是否启用</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="active" th:each="role,vs : ${roleList}">
+					<td><input type="checkbox" name="roleId" th:value="${role.roleId}"/></td>
+					<td th:text="${vs.count}"></td>
+					<td>[[${role.roleName}]]</td>
+					<td>[[${role.roleCode}]]</td>
+					<td>
+						<th:block th:if="${role.roleStatus eq 1}">
+							<span style="color:green">启用</span>
+						</th:block>
+						<th:block th:if="${role.roleStatus eq 0}">
+							<span style="color:red">禁用</span>
+						</th:block>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	
+</body>
+</html>
